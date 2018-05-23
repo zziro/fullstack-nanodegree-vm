@@ -44,18 +44,18 @@ def categoryMenuJSON(category_id):
 #    return jsonify(categories=[r.serialize for r in categories])
 
 
-# Show all categories
+# Show all Categories
 
 
 @app.route('/')
 @app.route('/categories/')
 def showCategories():
-    categories = session.query(Category).all()    
-    # return "This page will show all my categories"
+    categories = session.query(Category).all()        
     return render_template('categories.html', categories=categories)
+    # return "This page will show all my categories"
 
 
-# Create a new category
+# Create a new Category
 
 
 @app.route('/category/new/', methods=['GET', 'POST'])
@@ -66,11 +66,10 @@ def newCategory():
         session.commit()
         return redirect(url_for('showCategories'))
     else:
-        return render_template('newCategory.html')
-        
+        return render_template('newcategory.html')        
     # return "This page will be for making a new category"
 
-# Edit a category
+# Edit a Category
 
 
 @app.route('/category/<int:category_id>/edit/', methods=['GET', 'POST'])
@@ -83,11 +82,11 @@ def editCategory(category_id):
             return redirect(url_for('showCategories'))
     else:
         return render_template(
-            'editCategory.html', category=editedCategory)
+            'editcategory.html', category=editedCategory)
 
     # return 'This page will be for editing category %s' % category_id
 
-# Delete a category
+# Delete a Category
 
 @app.route('/category/<int:category_id>/delete/', methods=['GET', 'POST'])
 def deleteCategory(category_id):
@@ -100,83 +99,79 @@ def deleteCategory(category_id):
             url_for('showCategories', category_id=category_id))
     else:
         return render_template(
-            'deleteCategory.html', category=categoryToDelete)
+            'deletecategory.html', category=categoryToDelete)
     # return 'This page will be for deleting category %s' % category_id
 
 
-# Show a category menu
+# Show a Category Item
 
 
 @app.route('/category/<int:category_id>/')
-@app.route('/category/<int:category_id>/menu/')
-def showMenu(category_id):
+@app.route('/category/<int:category_id>/item/')
+def showItems(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     items = session.query(CategoryItem).filter_by(
         category_id=category_id).all()
-    return render_template('menu.html', items=items, category=category)
-    # return 'This page is the menu for category %s' % category_id
+    return render_template('categoryitems.html', items=items, category=category)
+    # return 'This page is the item for category %s' % category_id
 
-# Create a new menu item
+# Create a new Category Item
 
 
-@app.route('/category/<int:category_id>/menu/new/', methods=['GET', 'POST'])
-def newMenuItem(category_id):
+@app.route('/category/<int:category_id>/item/new/', methods=['GET', 'POST'])
+def newCategoryItem(category_id):
     if request.method == 'POST':
-        newItem = CategoryItem(name=request.form['name'], description=request.form['description'], category_id=category_id)
+        newItem = CategoryItem(name=request.form['name'], 
+                            description=request.form['description'],
+                            category_id=category_id)
         session.add(newItem)
         session.commit()
 
-        return redirect(url_for('showMenu', category_id=category_id))
+        return redirect(url_for('showItems', category_id=category_id))
     else:
         return render_template('newcategoryitem.html', category_id=category_id)
 
-    return render_template('newMenuItem.html', category=category)
-    # return 'This page is for making a new menu item for category %s'
+    #return render_template('newcategoryitem.html', category=category)
+    # return 'This page is for making a new category item for category %s'
     # %category_id
 
-# Edit a menu item
+# Edit a Category Item
 
 
-"""@app.route('/category/<int:category_id>/menu/<int:menu_id>/edit',
-           methods=['GET', 'POST'])
-def editMenuItem(category_id, menu_id):
-    editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
+@app.route('/category/<int:category_id>/item/<int:item_id>/edit', methods=['GET', 'POST'])
+def editCategoryItem(category_id, item_id):
+    editedItem = session.query(CategoryItem).filter_by(id=item_id).one()    
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
         if request.form['description']:
-            editedItem.description = request.form['name']
-        if request.form['price']:
-            editedItem.price = request.form['price']
-        if request.form['course']:
-            editedItem.course = request.form['course']
+            editedItem.description = request.form['description']
+
         session.add(editedItem)
         session.commit()
-        return redirect(url_for('showMenu', category_id=category_id))
+        return redirect(url_for('showItems', category_id=category_id))
     else:
+        
+        return render_template('editcategoryitem.html', category_id=category_id, item_id=item_id, item=editedItem)
 
-        return render_template(
-            'editmenuitem.html', category_id=category_id, menu_id=menu_id, item=editedItem)"""
+    # return 'This page is for editing category item %s' % item_id
 
-    # return 'This page is for editing menu item %s' % menu_id
-
-# Delete a menu item
+# Delete a Category Item
 
 
-"""@app.route('/category/<int:category_id>/menu/<int:menu_id>/delete',
-           methods=['GET', 'POST'])
-def deleteMenuItem(category_id, menu_id):
-    itemToDelete = session.query(MenuItem).filter_by(id=menu_id).one()
+@app.route('/category/<int:category_id>/item/<int:item_id>/delete', methods=['GET', 'POST'])
+def deleteCategoryItem(category_id, item_id):
+    itemToDelete = session.query(CategoryItem).filter_by(id=item_id).one()
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()
-        return redirect(url_for('showMenu', category_id=category_id))
+        return redirect(url_for('showItems', category_id=category_id))
     else:
-        return render_template('deleteMenuItem.html', item=itemToDelete)
-    # return "This page is for deleting menu item %s" % menu_id"""
+        return render_template('deletecategoryitem.html', item=itemToDelete)
+    # return "This page is for deleting category item %s" % item_id
 
 
 if __name__ == '__main__':
     app.debug = True
-    app.secret_key = 'super_secret_key'
+    #app.secret_key = 'super_secret_key'
     app.run(host='0.0.0.0', port=5000)

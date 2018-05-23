@@ -9,13 +9,11 @@
 <div class = 'pane'>
 <h1>Categories</h1>
 
-<a href="{{url_for('newCategory')}}" > <h3> Create a New Category </h3> </a>
+<a href="{{url_for('newCategory')}}" > <h3> Add Category</h3> </a>
 
 {% for category in categories %}
 
-<p>{{category.name}}</p>
-
-<a href = "{{url_for('showMenu', category_id = category.id)}}"> <p>{{category.name}}</p></a>
+<a href = "{{url_for('showItems', category_id = category.id)}}"> <p>{{category.name}}</p></a>
 
 <p><a href = "{{url_for('editCategory', category_id = category.id)}}">Edit</a></p>
 
