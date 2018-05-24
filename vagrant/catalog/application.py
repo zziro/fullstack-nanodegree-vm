@@ -140,7 +140,7 @@ def newCategoryItem(category_id):
 
 @app.route('/category/<int:category_id>/item/<int:item_id>/edit', methods=['GET', 'POST'])
 def editCategoryItem(category_id, item_id):
-    editedItem = session.query(CategoryItem).filter_by(id=item_id).one()    
+    editedItem = session.query(CategoryItem).filter_by(id=item_id).one()
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -148,10 +148,9 @@ def editCategoryItem(category_id, item_id):
             editedItem.description = request.form['description']
 
         session.add(editedItem)
-        session.commit()
+        session.commit()        
         return redirect(url_for('showItems', category_id=category_id))
     else:
-        
         return render_template('editcategoryitem.html', category_id=category_id, item_id=item_id, item=editedItem)
 
     # return 'This page is for editing category item %s' % item_id
