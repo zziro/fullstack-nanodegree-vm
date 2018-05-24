@@ -79,10 +79,12 @@ def editCategory(category_id):
     if request.method == 'POST':
         if request.form['name']:
             editedCategory.name = request.form['name']
-            return redirect(url_for('showCategories'))
+
+        session.add(editedCategory)
+        session.commit()
+        return redirect(url_for('showCategories'))
     else:
-        return render_template(
-            'editcategory.html', category=editedCategory)
+        return render_template('editcategory.html', category=editedCategory)
 
     # return 'This page will be for editing category %s' % category_id
 
@@ -131,7 +133,7 @@ def newCategoryItem(category_id):
     else:
         return render_template('newcategoryitem.html', category_id=category_id)
 
-    #return render_template('newcategoryitem.html', category=category)
+    # return render_template('newcategoryitem.html', category=category)
     # return 'This page is for making a new category item for category %s'
     # %category_id
 
@@ -167,6 +169,7 @@ def deleteCategoryItem(category_id, item_id):
         return redirect(url_for('showItems', category_id=category_id))
     else:
         return render_template('deletecategoryitem.html', item=itemToDelete)
+
     # return "This page is for deleting category item %s" % item_id
 
 
