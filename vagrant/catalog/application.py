@@ -125,7 +125,8 @@ def showItems(category_id):
 
 
 @app.route('/category/<int:category_id>/item/new/', methods=['GET', 'POST'])
-def newCategoryItem(category_id):
+def newCategoryItem(category_id):    
+    categories = session.query(Category).all()
     if request.method == 'POST':
         newItem = CategoryItem(name=request.form['name'], 
                             description=request.form['description'],
@@ -135,7 +136,7 @@ def newCategoryItem(category_id):
 
         return redirect(url_for('showItems', category_id=category_id))
     else:
-        return render_template('newcategoryitem.html', category_id=category_id)
+        return render_template('newcategoryitem.html', category_id=category_id, categories=categories)
 
     # return render_template('newcategoryitem.html', category=category)
     # return 'This page is for making a new category item for category %s'
@@ -146,6 +147,7 @@ def newCategoryItem(category_id):
 
 @app.route('/category/<int:category_id>/item/<int:item_id>/edit', methods=['GET', 'POST'])
 def editCategoryItem(category_id, item_id):
+    categories = session.query(Category).all()
     editedItem = session.query(CategoryItem).filter_by(id=item_id).one()
     if request.method == 'POST':
         if request.form['name']:
@@ -157,7 +159,7 @@ def editCategoryItem(category_id, item_id):
         session.commit()        
         return redirect(url_for('showItems', category_id=category_id))
     else:
-        return render_template('editcategoryitem.html', category_id=category_id, item_id=item_id, item=editedItem)
+        return render_template('editcategoryitem.html', category_id=category_id, item_id=item_id, item=editedItem, categories=categories)
 
     # return 'This page is for editing category item %s' % item_id
 
