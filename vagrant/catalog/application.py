@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Catalog Menu Application"
+APPLICATION_NAME = "Category Menu Application"
 
 # Connect to Database and create database session
 engine = create_engine('sqlite:///catalog.db')
@@ -179,7 +179,7 @@ def gdisconnect():
         return response
 
 
-# JSON APIs to view Catalog Information
+# JSON APIs to view Category Information
 @app.route('/category/<int:category_id>/menu/JSON')
 def categoryMenuJSON(category_id):
     category = session.query(Restaurant).filter_by(id=category_id).one()
@@ -208,7 +208,7 @@ def showCategories():
     categories = session.query(Category).all()        
     return render_template('categories.html', categories=categories)
 
-    # return "This page will show all my categories"
+    # return "This page will show all my Categories"
 
 
 # Create a new Category
@@ -227,7 +227,7 @@ def newCategory():
     else:
         return render_template('newcategory.html')
 
-    # return "This page will be for making a new category"
+    # return "This page will be for making a new Category"
 
 # Edit a Category
 
@@ -244,12 +244,12 @@ def editCategory(category_id):
 
         session.add(editedCategory)        
         session.commit()
-        flash('Category Successfully Edited %s' % editedCategory.name)
+        flash('Category %s Successfully Edited' % editedCategory.name)
         return redirect(url_for('showCategories'))
     else:
         return render_template('editcategory.html', category=editedCategory)
 
-    # return 'This page will be for editing category %s' % category_id
+    # return 'This page will be for editing Category %s' % category_id
 
 # Delete a Category
 
@@ -261,15 +261,15 @@ def deleteCategory(category_id):
         Category).filter_by(id=category_id).one()
     if request.method == 'POST':
         session.delete(categoryToDelete)        
-        session.commit()
-        flash('%s Successfully Deleted' % categoryToDelete.name)
+        session.commit()        
+        flash('Category  %s Successfully Deleted' % categoryToDelete.name)
         return redirect(
             url_for('showCategories', category_id=category_id))
     else:
         return render_template(
             'deletecategory.html', category=categoryToDelete)
 
-    # return 'This page will be for deleting category %s' % category_id
+    # return 'This page will be for deleting Category %s' % category_id
 
 
 # Show a Category Item
@@ -283,7 +283,7 @@ def showItems(category_id):
         category_id=category_id).all()
     return render_template('categoryitems.html', items=items, category=category)
 
-    # return 'This page is the item for category %s' % category_id
+    # return 'This page is for showing Category Items'
 
 # Create a new Category Item
 
@@ -292,21 +292,19 @@ def showItems(category_id):
 def newCategoryItem(category_id):
     if 'username' not in login_session:
         return redirect('/login')  
-    categories = session.query(Category).all()
     if request.method == 'POST':
         newItem = CategoryItem(name=request.form['name'], 
                             description=request.form['description'],
                             category_id=category_id)
         session.add(newItem)
         session.commit()
-        flash('New Category Item %s Item Successfully Created' % (newItem.name))            
+        flash('New Category Item %s Successfully Created' % (newItem.name))            
         return redirect(url_for('showItems', category_id=category_id))
     else:
-        return render_template('newcategoryitem.html', category_id=category_id, categories=categories)
+        return render_template('newcategoryitem.html', category_id=category_id)
 
-    # return render_template('newcategoryitem.html', category=category)
-    # return 'This page is for making a new category item for category %s'
-    # %category_id
+    # return 'This page is for making a new Category Item %s' % category_id
+     
 
 # Edit a Category Item
 
@@ -315,7 +313,6 @@ def newCategoryItem(category_id):
 def editCategoryItem(category_id, item_id):
     if 'username' not in login_session:
         return redirect('/login')
-    categories = session.query(Category).all()
     editedItem = session.query(CategoryItem).filter_by(id=item_id).one()
     if request.method == 'POST':
         if request.form['name']:
@@ -325,12 +322,12 @@ def editCategoryItem(category_id, item_id):
 
         session.add(editedItem)
         session.commit()
-        flash('Menu Item Successfully Edited')       
+        flash('Category Item %s Successfully Edited' % (editedItem.name))
         return redirect(url_for('showItems', category_id=category_id))
     else:
-        return render_template('editcategoryitem.html', category_id=category_id, item_id=item_id, item=editedItem, categories=categories)
+        return render_template('editcategoryitem.html', category_id=category_id, item_id=item_id, item=editedItem)
 
-    # return 'This page is for editing category item %s' % item_id
+    # return 'This page is for editing Category Item %s' % item_id
 
 # Delete a Category Item
 
@@ -343,7 +340,7 @@ def deleteCategoryItem(category_id, item_id):
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()
-        flash('Menu Item Successfully Deleted')
+        flash('Category Item %s Successfully Deleted' % (itemToDelete.name))
         return redirect(url_for('showItems', category_id=category_id))
     else:
         return render_template('deletecategoryitem.html', item=itemToDelete)
@@ -355,46 +352,52 @@ def deleteCategoryItem(category_id, item_id):
 
 @app.route('/category/<int:category_id>/detail/<int:item_id>/show', methods=['GET', 'POST'])
 def showCategoryItemDetail(category_id, item_id):
-    editedItem = session.query(CategoryItem).filter_by(id=item_id).one()
-    return render_template('showcategoryitemdetail.html', category_id=category_id, item_id=item_id, item=editedItem)   
+    item = session.query(CategoryItem).filter_by(id=item_id).one()
+    return render_template('showcategoryitemdetail.html', category_id=category_id, item_id=item_id, item=item)   
 
-    # return 'This page is for editing category item detail %s' % item_id
+    # return 'This page is for showing Category Item Detail'
 
 # Edit a Category Item Detail
 
 
 @app.route('/category/<int:category_id>/detail/<int:item_id>/edit', methods=['GET', 'POST'])
 def editCategoryItemDetail(category_id, item_id):
+    if 'username' not in login_session:
+        return redirect('/login')
     editedItem = session.query(CategoryItem).filter_by(id=item_id).one()
-    if request.method == 'POST':        
+    if request.method == 'POST':
         if request.form['description']:
             editedItem.description = request.form['description']
 
         session.add(editedItem)
-        session.commit()        
+        session.commit()
+        flash('Category Item Detail %s Successfully Edited' % (editedItem.name))
         return redirect(url_for('showCategoryItemDetail', category_id=category_id, item_id=item_id))
     else:
         return render_template('editcategoryitemdetail.html', category_id=category_id, item_id=item_id, item=editedItem)
 
-    # return 'This page is for editing category item %s' % item_id
+    # return 'This page is for editing Category Item Detail %s' % item_id
 
 # Delete a Category Item Detail
 
 
 @app.route('/category/<int:category_id>/detail/<int:item_id>/delete', methods=['GET', 'POST'])
-def deleteCategoryItemDetail(category_id, item_id):
+def deleteCategoryItemDetail(category_id, item_id):   
+    if 'username' not in login_session:
+        return redirect('/login')
     itemToDelete = session.query(CategoryItem).filter_by(id=item_id).one()
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()
-        return redirect(url_for('showCategoryItemDetail', category_id=category_id, item_id=item_id))
+        #flash('Category Item Detail %s Successfully Deleted' % (itemToDelete.name))
+        return redirect(url_for('showItems', category_id=category_id))
     else:
         return render_template('deletecategoryitemdetail.html', item=itemToDelete)
 
-    # return "This page is for deleting category item %s" % item_id
+    # return "This page is for deleting Category Item  Detail %s" % item_id
 
 
 if __name__ == '__main__':
     app.debug = True
-    app.secret_key = 'ThGRBgNnf-bf8cvRX8E5ftfm'
+    app.secret_key = '<S\xa5#\x95\xe4A\x10\x81\xe1X\xf4\xbf\xb1\xce\xf8\x83y4zK\xdf\xc5\t'
     app.run(host='0.0.0.0', port=5000)
