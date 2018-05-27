@@ -21,7 +21,12 @@ app = Flask(__name__)
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Category Item Application"
+
+CLIENT_SECRET = json.loads(
+    open('client_secrets.json', 'r').read())['web']['client_secret']
+
+APPLICATION_NAME = "Category App"
+
 
 # Connect to Database and create database session
 engine = create_engine('sqlite:///catalog.db')
@@ -38,7 +43,7 @@ def showLogin():
                     for x in xrange(32))
     login_session['state'] = state
     # return "The current session state is %s" % login_session['state']
-    return render_template('login.html', STATE=state)  
+    return render_template('login.html', STATE=state, CLIENT_ID=CLIENT_ID)  
 
 
 @app.route('/gconnect', methods=['POST'])
@@ -169,7 +174,7 @@ def gdisconnect():
         del login_session['email']
 
         response = make_response(json.dumps('Successfully disconnected.'), 200)
-        response.headers['Content-Type'] = 'application/json'
+        response.headers['Content-Type'] = 'application/json'        
         return response
     else:
         # For whatever reason, the given token was invalid.
@@ -391,5 +396,5 @@ def deleteCategoryItemDetail(category_id, item_id):
 
 if __name__ == '__main__':
     app.debug = True
-    app.secret_key = '<S\xa5#\x95\xe4A\x10\x81\xe1X\xf4\xbf\xb1\xce\xf8\x83y4zK\xdf\xc5\t'
+    app.secret_key = 'CLIENT_SECRET'
     app.run(host='0.0.0.0', port=5000)
