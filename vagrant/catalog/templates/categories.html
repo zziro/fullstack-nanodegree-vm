@@ -4,23 +4,28 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 	</head>
 
-
 <body>
-<div class = 'pane'>
-
-	<div><a href="{{url_for('showLogin')}}">Login</a> | <a href="{{url_for('gdisconnect')}}">Logou</a>t</div>
-<h1>Categories</h1>
+<header class="header">
+	<h1>Sport Catalog App</h1>
+	<div class="header-title">
+		<a href="{{url_for('showLogin')}}">Login</a> | <a href="{{url_for('gdisconnect')}}">Logout</a>
+	</div>	
+</header>
+</br>
+<div>
 
 <a href="{{url_for('newCategory')}}" > <h3> Add Category</h3> </a>
+	</br>
+	</br>
 
 {% for category in categories %}
 
-<a href = "{{url_for('showItems', category_id = category.id)}}"> <p>{{category.name}}</p></a>
+<a href = "{{url_for('showItems', category_id = category.id)}}"><p><h2>{{category.name}}</p></h2></a>
 
 <p><a href = "{{url_for('editCategory', category_id = category.id)}}">Edit</a></p>
 
 <p> <a href = "{{url_for('deleteCategory', category_id = category.id)}}">Delete</a> </p>
-
+</br>
 
 {% endfor %}
 

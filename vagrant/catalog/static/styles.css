@@ -1,22 +1,37 @@
-body            { font-family: sans-serif; background-color: #333333; background-image: url('https://cloud.githubusercontent.com/assets/9041401/6119508/7cbced14-b07e-11e4-9dbd-f01488203879.jpg')}
- h1, h2, h3, h4       { color: #CCCCCC; }
-h1, h2          { font-family: 'Georgia', serif; margin: 0; }
-h1              { border-bottom: 2px solid #eee; }
-h2              { font-size: 1.2em; }
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
 
-p               { color: #CCCCCC;}
+body {
+  font-family: Arial, Sans-serif;
+  font-size: 12px;
+  color: #424242;
+}
 
-a {text-decoration: none; color:#FFFFCC; font-size: .75em;}
+h1, h2, h3, h4, h5 {
+  margin: 0;
+}
 
-.pane {position:absolute; left: 25%; border: 2px solid;
-    border-radius: 25px; padding: 5px; margin: 5px; border-color: #999999; background-color: #333333; }
-.header         {left:50%; text-align: center;}
-.name {width:50%;display: inline-block; float: left;}
-.description {}
-.price {text-align: right; width:50%; float: right; }
-.editdeletepane{}
+a {
+	text-decoration: none;
+}
 
-.flash          { background: #cee5F5; }
+header, footer, div {
+  box-sizing: border-box;
+  text-align: justify;  
+}
 
+.header {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+  min-height: 56px;
+  transition: min-height 0.3s;
+}
 
-
+.header-title {    
+  font-size: 1em;
+  margin: 0.5em 0.25em;
+  text-align: right;
+}
