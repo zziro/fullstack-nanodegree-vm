@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Category Menu Application"
+APPLICATION_NAME = "Category Item Application"
 
 # Connect to Database and create database session
 engine = create_engine('sqlite:///catalog.db')
