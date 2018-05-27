@@ -185,23 +185,18 @@ def gdisconnect():
 
 
 # JSON APIs to view Category Information
-@app.route('/category/<int:category_id>/menu/JSON')
-def categoryMenuJSON(category_id):
-    category = session.query(Restaurant).filter_by(id=category_id).one()
-    items = session.query(MenuItem).filter_by(
+@app.route('/category/<int:category_id>/item/JSON')
+def categoryItemJSON(category_id):
+    category = session.query(Category).filter_by(id=category_id).one()
+    items = session.query(CategoryItem).filter_by(
         category_id=category_id).all()
-    return jsonify(MenuItems=[i.serialize for i in items])
-
-#@app.route('/category/<int:category_id>/menu/<int:menu_id>/JSON')
-#def categoryItemJSON(category_id, menu_id):
-#    Menu_Item = session.query(MenuItem).filter_by(id=menu_id).one()
-#    return jsonify(Menu_Item=Menu_Item.serialize)
+    return jsonify(CategoryItems=[i.serialize for i in items])
 
 
-#@app.route('/category/JSON')
-#def categoriesJSON():
-#    categories = session.query(Category).all()
-#    return jsonify(categories=[r.serialize for r in categories])
+@app.route('/category/JSON')
+def categoriesJSON():
+    categories = session.query(Category).all()
+    return jsonify(categories=[r.serialize for r in categories])
 
 
 # Show all Categories
