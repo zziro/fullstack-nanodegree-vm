@@ -19,7 +19,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-
 # Create user
 User1 = User(name="Paolo Liberato", email="libert.system@gmail.com")
 session.add(User1)
