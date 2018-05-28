@@ -22,15 +22,15 @@ The run this project you will need install some tools such as:
 	* Once the virtual machine is ip, run the following command to login: <br />
 		vagrant ssh
 
-* Generating Credentials
-The Catalog project has the alternative to login with your Google+ account, ussing OAuth 2.0. To do that, you need to generate and secret key.
+* Generating Credentials <br />
+The Sport Catalog project has the alternative to login with your Google+ account, using OAuth 2.0. To do that, you need to generate and secret key.
 	* Go to the [Google Developer Console].
 	* Create New Project.
 	* Enable the Google+ API.
 	* On the left menu, click on Credentials.	
 	* Select Create Credential. From the dropdown choose OAuth client ID.
-	* Make sure the option 'Authorised JavaScript origins', is filled like a URL. (http://localhost:5000)
-	* Once you will have finished,  download the JSON file and reanem it as : client_secrets.json and paste it inside the catalog_project folder.
+	* Make sure the option 'Authorised JavaScript origins', is filled like URL. (http://localhost:5000)
+	* Once you will have finished,  download the JSON file and rename it as: client_secrets.json and paste it inside the catalog_project folder.
 
 
 [Google Developer Console]:https://console.cloud.google.com
