@@ -7,7 +7,8 @@ You will be able to ADD, READ, UPDATE and DELETE the differents categories and i
 
 The run this project you will need install some tools such as:
 
-Install Virtual Box: For this project we will use Virtual Box 5.1.34. It can be downloaded [here].
+Install Virtual Box: For this project we will use Virtual Box 5.1.34. It can be downloaded [here].<br />
+
 Install  Vagrant:
 
 
