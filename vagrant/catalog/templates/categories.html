@@ -1,35 +1,35 @@
-<html>
+<!DOCTYPE html>
 
 <head>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
 
 <body>
-<header class="header">
-	<h1>Sport Catalog App</h1>
-	<div class="header-title">
-		<a href="{{url_for('showLogin')}}">Login</a> | <a href="{{url_for('gdisconnect')}}">Logout</a>
-	</div>	
-</header>
-</br>
-<div>
-
-<a href="{{url_for('newCategory')}}" > <h3> Add Category</h3> </a>
+	<header class="header" >
+		<h1>Sport Catalog App</h1>
+		<div class="header-title">
+			<a href="{{url_for('showLogin')}}">Login</a> | <a href="{{url_for('gdisconnect')}}">Logout</a>
+		</div>	
+	</header>
 	</br>
-	</br>
+	<div>
 
-{% for category in categories %}
+	<h3><a href="{{url_for('newCategory')}}" >  Add Category </a></h3>
+		</br >
+		</br >
 
-<a href = "{{url_for('showItems', category_id = category.id)}}"><p><h2>{{category.name}}</p></h2></a>
+	{% for category in categories %}
 
-<p><a href = "{{url_for('editCategory', category_id = category.id)}}">Edit</a></p>
+	<h2><a href = "{{url_for('showItems', category_id = category.id)}}"><p>{{category.name}}</p></a></h2>
 
-<p> <a href = "{{url_for('deleteCategory', category_id = category.id)}}">Delete</a> </p>
-</br>
+	<p><a href = "{{url_for('editCategory', category_id = category.id)}}">Edit</a></p>
 
-{% endfor %}
+	<p> <a href = "{{url_for('deleteCategory', category_id = category.id)}}">Delete</a> </p>
+	</br >
 
-</div>
+	{% endfor %}
+
+	</div>
 </body>
 
 </html>
