@@ -23,5 +23,23 @@ The run this project you will need install some tools such as:
 [repo]:https://github.com/udacity/fullstack-nanodegree-vm
 [here]:https://www.virtualbox.org/wiki/Download_Old_Builds_5_0
 
+* Generating Credentials
+The Catalog project has the alternative to login with your Google+ account, ussing OAuth 2.0. To do that, you need to generate and secret key.
+	* Go to the [Google Developer Console].
+	* Create New Project.
+	* Enable the Google+ API.
+	* On the left menu, click on Credentials.	
+	* Select Create Credential. From the dropdown choose OAuth client ID.
+	* Make sure the option 'Authorised JavaScript origins', is filled like a URL. (http://localhost:5000)
+	* Once you will have finished,  download the JSON file and reanem it as : client_secrets.json and paste it inside the catalog_project folder.
 
-* Running te project
+
+[Google Developer Console]:https://console.cloud.google.com
+### Running te project
+
+* Inside the catalog_project, run the following commands:
+	* To configure the database: python database_setup.py
+	* To load data: python database_data.py
+	* To run the app: python application.py
+
+After that, open your browser and type: http://localhost:5000.
