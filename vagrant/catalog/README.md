@@ -5,17 +5,27 @@ You will be able to ADD, READ, UPDATE and DELETE the differents categories and i
 
 ## Getting started
 
+### Prerequisites
 The run this project you will need install some tools such as:
 
-Install Virtual Box: For this project we will use Virtual Box 5.1.34. It can be downloaded [here].<br />
+* Install Virtual Box: For this project we will use Virtual Box 5.1.34. It can be downloaded [here].<br />
 
-Install  Vagrant:
+* Install Vagrant: 
+	* It you can download it from this [repo]. It normally takes place at the Downloads folder.
+	* Fork the repo and clone the project.
+	git clone https://github.com/{username}/fullstack-nanodegree-vm/tree/master/vagrant/catalog catalog_project
+	* Change directory to vagrant folder.
+	* Inside vagrant folder, run the following command in order to run the virtual machine.
+	vagrant up
+	* Once the virtual machine is ip, run the following command to login:
+	vagrant ssh
+
+ 
 
 
 
-
-
+[repo]:https://github.com/udacity/fullstack-nanodegree-vm
 [here]:https://www.virtualbox.org/wiki/Download_Old_Builds_5_0
-Prerequisites
+
 
 Installing
