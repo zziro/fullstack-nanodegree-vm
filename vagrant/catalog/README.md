@@ -19,7 +19,7 @@ The run this project you will need install some tools such as:
 	* Change directory to vagrant folder.
 	* Inside vagrant folder, run the following command in order to run the virtual machine.<br />
 		vagrant up
-	* Once the virtual machine is ip, run the following command to login: <br />
+	* Once the virtual machine is up, run the following command to login: <br />
 		vagrant ssh
 
 * Generating Credentials <br />
