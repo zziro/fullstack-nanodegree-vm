@@ -410,6 +410,7 @@ def deleteCategoryItemDetail(category_id, item_id):
 
 
 if __name__ == '__main__':
+    # Once the project runs at 0.0.0.0, change it to localhost manually
     app.debug = True
     app.secret_key = 'CLIENT_SECRET'
     app.run(host='0.0.0.0', port=5000)

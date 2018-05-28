@@ -20,12 +20,8 @@ The run this project you will need install some tools such as:
 	* Once the virtual machine is ip, run the following command to login: <br />
 		vagrant ssh
 
- 
-
-
-
 [repo]:https://github.com/udacity/fullstack-nanodegree-vm
 [here]:https://www.virtualbox.org/wiki/Download_Old_Builds_5_0
 
 
-Installing
+* Running te project
